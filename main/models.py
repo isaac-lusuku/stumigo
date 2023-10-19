@@ -122,16 +122,3 @@ class Message(models.Model):
     def __str__(self):
         return self.body[20]
     
-
-    class Message(models.Model):
-    creator = models.ForeignKey(User, blank=False, on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, blank=False, on_delete=models.CASCADE)
-    body = models.TextField(max_length=250, blank=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    replied_to = models.ForeignKey("self", blank=True, on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['-created_at'] 
-
-    def __str__(self):
-        return self.body[20]
