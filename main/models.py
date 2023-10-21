@@ -21,10 +21,10 @@ class MyUserManager(BaseUserManager):
             raise ValueError("one of the fields was missing")
         user = self.model(
             email = self.normalize_email(email), 
-            username = username
         )
+        user.username = username
         user.set_password(password)
-        user.is_staff()
+        # user.is_staff()
         user.is_superuser = True
         user.save()
         return user
@@ -34,12 +34,15 @@ class MyUserManager(BaseUserManager):
 class User(AbstractBaseUser):
     username = models.CharField(unique=False, max_length=25, blank=False)
     email = models.EmailField(unique=True, max_length=25, blank=False)
-    password = models.CharField(max_length=15, blank=False)
+    password = models.CharField(max_length=150, blank=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     study_mate = models.ManyToManyField("self", blank=True)
 
+
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["password"]
+    REQUIRED_FIELDS = ["password", "username"]
+
+    objects = MyUserManager()
 
     def __str__(self) -> str:
         return self.username
