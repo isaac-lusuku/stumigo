@@ -24,7 +24,7 @@ class MyUserManager(BaseUserManager):
         )
         user.username = username
         user.set_password(password)
-        # user.is_staff()
+        user.is_staff = True
         user.is_superuser = True
         user.save()
         return user
@@ -46,6 +46,10 @@ class User(AbstractBaseUser):
 
     def __str__(self) -> str:
         return self.username
+    
+    def is_staff():
+        is_staff = True
+        return is_staff
     
 
 # additional information for the userprofile

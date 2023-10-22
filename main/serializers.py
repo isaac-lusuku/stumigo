@@ -55,4 +55,9 @@ class MessageSerializer(ModelSerializer):
         
 
 
-        
+        class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(blank=True, null=True)
+    bio = models.TextField(max_length=75, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
