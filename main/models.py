@@ -37,7 +37,9 @@ class User(AbstractBaseUser):
     password = models.CharField(max_length=150, blank=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     study_mate = models.ManyToManyField("self", blank=True)
+    followers = models.ManyToManyField("self", blank=True)
     is_superuser = models.BooleanField(default=False)
+
 
 
     USERNAME_FIELD = "email"
