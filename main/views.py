@@ -45,4 +45,26 @@ class UserView(APIView):
     #     serializer_data = UserProfileSerializer()
     #     return
         
+# this creates and returns the user 
+class UserView(APIView):
+    permission_classes = [AllowAny]
 
+    # creating a user
+    def post(self, request):
+        user_data = UserSerializer(data=request.data)
+
+        # validating the email address entered 
+        if is_valid_email(request.email):
+            """
+            after this point i should consider a verification email for 
+            confirmation
+            """
+            if user_data.is_valid():
+                user_data.save()
+                return Response(status.HTTP_201_CREATED)
+            else:
+                return Response(status.HTTP_406_NOT_ACCEPTABLE)
+        
+    # def get(self, request,):
+    #     serializer_data = UserProfileSerializer()
+    #     return
