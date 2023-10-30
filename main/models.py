@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import datetime
 
 
 # my usermanager
@@ -32,18 +33,11 @@ class MyUserManager(BaseUserManager):
 
 # my  user model
 class User(AbstractBaseUser):
-    username = models.CharField(unique=False, max_length=25, blank=False)
     email = models.EmailField(unique=True, max_length=25, blank=False)
     password = models.CharField(max_length=150, blank=False)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    study_mate = models.ManyToManyField("self", blank=True)
-    followers = models.ManyToManyField("self", blank=True)
-    is_superuser = models.BooleanField(default=False)
-
-
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["password", "username"]
+    REQUIRED_FIELDS = ["password",]
 
     objects = MyUserManager()
 
@@ -68,6 +62,11 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=75, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    date_joined = models.DateTimeField(auto_now_add=True, null=True)
+    study_mate = models.ManyToManyField("self", blank=True)
+    followers = models.ManyToManyField("self", blank=True)
+    is_superuser = models.BooleanField(default=False)
+    username = models.CharField(unique=False, max_length=25, blank=False)
 
     def __str__(self) -> str:
         return self.user.username
