@@ -35,6 +35,7 @@ class MyUserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(unique=True, max_length=25, blank=False)
     password = models.CharField(max_length=150, blank=False)
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["password",]
@@ -65,7 +66,6 @@ class UserProfile(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True, null=True)
     study_mate = models.ManyToManyField("self", blank=True)
     followers = models.ManyToManyField("self", blank=True)
-    is_superuser = models.BooleanField(default=False)
     username = models.CharField(unique=False, max_length=25, blank=False)
 
     def __str__(self) -> str:

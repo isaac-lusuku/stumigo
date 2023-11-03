@@ -11,8 +11,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.views import APIView
+import re
 
-
+"""
+remember to read about OAUTH and implement it in the code
+"""
 # import base64
 # from email.message import EmailMessage
 

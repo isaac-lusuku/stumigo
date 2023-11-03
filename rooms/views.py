@@ -25,7 +25,9 @@ class TopicView(APIView):
             return Response(status.HTTP_200_OK)
         else:
             return Response(status.HTTP_406_NOT_ACCEPTABLE)
-        
+
+ 
+# the room view        
 class RoomView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -39,4 +41,27 @@ class RoomView(APIView):
             return Response(status.HTTP_406_NOT_ACCEPTABLE)
         
     # getting a room
-    def get(self, request):
+    def get(self, request, pk):
+        room = Room.objects.get(id= pk)
+
+        # getting the roo messages
+        messages = room.message_set.all().order_by("-time_created")
+        message_serializer = MessageSerializer(messages, many=True)
+
+        if room:
+            room_serializer = RoomSerializer(room, many=False)
+            message_room = {
+                "room":room_serializer.data,
+                "messages":message_serializer.data,
+            }
+            return Response(message_room, status.HTTP_200_OK)
+        else:
+            return Response(status.HTTP_404_NOT_FOUND)
+        
+
+# a view to deal with individual the messgaes
+class MessageView(APIView):
+     permission_classes = [IsAuthenticated]
+
+    #  creating a message
+    def post
