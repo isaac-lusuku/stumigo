@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import datetime
 
 
+
 # my usermanager
 class MyUserManager(BaseUserManager):
 
@@ -55,7 +56,7 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return self.is_superuser
     
-
+from rooms.models import Topic
 # additional information for the userprofile
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -67,6 +68,7 @@ class UserProfile(models.Model):
     study_mate = models.ManyToManyField("self", blank=True)
     followers = models.ManyToManyField("self", blank=True)
     username = models.CharField(unique=False, max_length=25, blank=False)
+    topic_followed = models.ManyToManyField(Topic,  blank=True)
 
     def __str__(self) -> str:
         return self.user.username
