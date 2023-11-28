@@ -99,6 +99,10 @@ class MessageView(APIView):
          pass
      
      
+# a view to deal with individual the messgaes
+class MessageView(APIView):
+     permission_classes = [IsAuthenticated]
+
     #  creating a message
      def post(self, request):
          message = MessageSerializer(data=request.data)
@@ -110,4 +114,3 @@ class MessageView(APIView):
          
     # editting a message
      def put(self, request, pk):
-         pass
