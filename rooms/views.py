@@ -114,3 +114,4 @@ class MessageView(APIView):
          
     # editting a message
      def put(self, request, pk):
+         pass
