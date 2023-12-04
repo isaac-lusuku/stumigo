@@ -99,7 +99,8 @@ class MessageView(APIView):
          pass
      
      
-# a view to deal with individual the messgaes
+
+     # a view to deal with individual the messgaes
 class MessageView(APIView):
      permission_classes = [IsAuthenticated]
 
@@ -113,5 +114,4 @@ class MessageView(APIView):
              return Response(status.HTTP_406_NOT_ACCEPTABLE)
          
     # editting a message
-     def put(self, request, pk):
-         pass
+     def put(self,
