@@ -114,4 +114,5 @@ class MessageView(APIView):
              return Response(status.HTTP_406_NOT_ACCEPTABLE)
          
     # editting a message
-     def put(self,
+     def put(self, request, pk):
+         pass
